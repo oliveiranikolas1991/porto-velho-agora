@@ -62,3 +62,10 @@ Registros de decisões e revisão técnica; em ordem cronológica de implementa�
 - Tentativas reais de criar GitHub bloqueadas: GraphQL `CreateRepository` e REST HTTP 403 `Resource not accessible by integration`. Autorização verbal do usuário não amplia as permissões do token.
 - Criado projeto Vercel na equipe autorizada, Node 24 e variável DATABASE_URL sensível; evidências de produção serão registradas após os testes.
 - Revisão humana e conferência do Anexo B permanecem pendentes. Nenhuma revisão humana foi atribuída ao estudante.
+
+## 2026-11-12 — Integração real e testes de navegador
+- Executados dois cenários Playwright completos em Chromium: desktop e Pixel 7; ambos aprovados em 19,9 s contra banco Neon isolado.
+- Verificados cadastro válido/inválido, duplicidade de e-mail normalizado, login correto/incorreto, cookies Secure/HttpOnly/SameSite, logout e revogação do token anterior, acesso negado, feed, filtros, detalhes, imagem persistente e texto tratado sem execução de script.
+- Rejeitados PDF, extensão incompatível, assinatura de PNG falsa, imagem acima de 2 MB e categoria inválida. Dez tentativas concorrentes retornaram oito HTTP 401 e dois HTTP 429, conforme o limite.
+- Ajustados seletores dos testes para rótulos com asterisco; falhas iniciais não foram contabilizadas como testes aprovados.
+- Migração atômica aplicada ao banco principal `neondb` do projeto Neon existente: nove comandos, sem exclusão de dados.

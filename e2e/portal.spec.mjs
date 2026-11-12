@@ -3,6 +3,7 @@ import { randomBytes } from 'node:crypto';
 import sharp from 'sharp';
 
 test('cadastro → login → publicação → visitante → logout e segurança', async ({ page, request, baseURL }, testInfo) => {
+  page.setDefaultTimeout(15000);
   const suffix = `${Date.now()}-${testInfo.project.name}`;
   const email = `verificacao-${suffix}@example.invalid`;
   const senha = randomBytes(24).toString('hex');
@@ -56,7 +57,7 @@ test('cadastro → login → publicação → visitante → logout e segurança'
   await page.goto('/publicar');
   const title = `[TESTE AUTOMATIZADO] Foto ${suffix}`;
   await page.getByLabel('Título do aviso').fill(title);
-  await page.getByLabel('Descrição', { exact: true }).fill('Imagem de verificação técnica. Esta publicação não relata uma ocorrência real.');
+  await page.getByLabel('Descrição').fill('Imagem de verificação técnica. Esta publicação não relata uma ocorrência real.');
   await page.getByLabel('Categoria').selectOption('Outros');
   await page.getByLabel('Bairro').fill('Centro');
   await page.locator('input[type=file]').setInputFiles({ name: 'verificacao.png', mimeType: 'image/png', buffer: png });
