@@ -1,0 +1,24 @@
+name: Validação do Porto Velho Agora
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout com histórico
+        uses: actions/checkout@v4
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependências
+        run: npm install --no-fund
+      - name: Testes unitários
+        run: npm test
+      - name: Conferir arquivos sensíveis
+        run: npm run security
+      - name: Compilar aplicação
+        run: npm run build

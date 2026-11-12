@@ -43,3 +43,8 @@ Registros de decisões e revisão técnica; em ordem cronológica de implementa�
 - Corrigido retorno dos IDs para texto na API, evitando problemas de serialização de inteiros grandes.
 - Inserida verificação inicial do tamanho declarado da requisição multipart, além do limite do arquivo e da restrição de tamanho no banco.
 - Documentada de forma explícita a ausência de evidência de uso do Google Antigravity, para não criar um relatório acadêmico falso.
+
+## 2026-11-12 — Validação contínua
+- Criado workflow GitHub Actions para instalar dependências, executar testes unitários, conferir arquivos sensíveis e compilar o Next.js em cada push/PR.
+- Adicionados cabeçalhos HTTP `nosniff`, `Referrer-Policy`, `X-Frame-Options` e `Permissions-Policy` para reduzir exposição a vetores comuns de navegador.
+- O workflow será efetivamente executado **apenas após publicar o repositório no GitHub**. Ainda não há resultado de CI real para alegar como aprovado.
