@@ -2,19 +2,17 @@
 
 ## Publicação real e pendências
 
-- **GitHub:** PENDENTE — integração GitHub negou criação do repositório (HTTP 403); histórico preservado localmente.
+- **GitHub:** https://github.com/oliveiranikolas1991/porto-velho-agora — histórico original e correções publicados.
 - **Sistema:** https://porto-velho-agora.vercel.app — produção Vercel, acesso público.
 - **Spec final:** `spec.md` na raiz do repositório.
 - **Changelog:** `CHANGELOG.md` na raiz do repositório.
 
-> O site já foi publicado pela API de arquivos, sem conexão GitHub. Para liberar o versionamento remoto, crie o repositório público vazio na conta oliveiranikolas1991 ou conceda uma conexão com permissão de criação. Depois envie o Git existente e conecte-o ao projeto Vercel existente; não recrie o projeto nem o banco.
+O código foi enviado à branch `main` após a liberação da conexão GitHub. Os nove commits iniciais foram conferidos no remoto, e o primeiro GitHub Actions passou (execução 43319011360).
 
-## Etapa 1 — GitHub
+## Etapa 1 — GitHub concluído
 
-1. Crie um repositório vazio `porto-velho-agora` na sua conta GitHub, público (ou convide o professor, se privado).
-2. **Envie o histórico Git existente, não apenas os arquivos de um ZIP.** No diretório do projeto, execute `git remote add origin https://github.com/SEU_USUARIO/porto-velho-agora.git` e `git push -u origin main`. Não crie um repositório novo com um commit único.
-3. Confirme que o GitHub exibe os commits de implementação e documentação e contém `spec.md`, `CHANGELOG.md` e `schema.sql`.
-4. Nunca envie `.env.local`, senhas, credenciais da Neon, cookies ou chaves.
+O repositório é público. Novas alterações devem usar commits reais e `git push origin main`, sem reescrever os seis commits originais. `.env.local` permanece ignorado.
+
 
 ## Etapa 2 — Neon (PostgreSQL)
 
@@ -25,10 +23,10 @@
 
 ## Etapa 3 — Vercel
 
-1. Entre em `https://vercel.com/new`, clique em Import Git Repository e selecione `porto-velho-agora`.
+1. Abra o projeto Vercel **existente** `porto-velho-agora` → Settings → Git → Connect Git Repository. Selecione `oliveiranikolas1991/porto-velho-agora`. Não crie outro projeto.
 2. Framework: Next.js; Root Directory: `./`; build padrão `npm run build`; Node 24.
 3. Em **Environment Variables**, configure `DATABASE_URL` como a URL **real da Neon**, selecionando Production (e Preview/Development se desejar). Jamais prefira escrever a URL no código.
-4. Clique em Deploy. Confira logs e endereço `https://...vercel.app` retornado pelo serviço.
+4. O site já está publicado por arquivos. A conexão Git automática ainda depende de a Vercel reconhecer o repositório; a tentativa por API retornou `incorrect_git_source_info`. Após conectar, confira o deployment e os logs.
 5. Para alterações posteriores, faça novos commits e `git push` — a integração Vercel pode redesplegar automaticamente.
 
 Como alternativa à conexão manual, a integração Neon no Marketplace da Vercel pode disponibilizar `DATABASE_URL` diretamente no projeto: verifique escopo e conexão do banco antes de subir a aplicação. Referência: https://vercel.com/docs/postgres.

@@ -16,7 +16,7 @@
 
 ## Exige teste/ação real antes de marcar como concluído
 
-- [x] Varredura heurística de todos os blobs dos commits locais: nenhum segredo reconhecido. Inspeção do remoto pendente, pois ainda não existe repositório acessível.
+- [x] Varredura heurística de todos os blobs dos commits locais: nenhum segredo reconhecido. Histórico remoto conferido após o envio; hash inicial remoto e local idênticos.
 - [x] `npm audit` executado: zero vulnerabilidades reportadas.
 - [x] Build e nove testes unitários aprovados; logs de build da Vercel conferidos.
 - [x] Schema testado em branch isolada e aplicado ao banco principal; cinco tabelas conferidas.

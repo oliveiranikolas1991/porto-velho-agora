@@ -64,6 +64,8 @@ fc11313 docs: atualizar spec, changelog, seguranca e preparar deploy
 
 Novos commits registram apenas as correções e verificações efetivamente realizadas. `spec-original.md` permanece idêntica à recebida.
 
-GitHub: criação bloqueada por GraphQL `CreateRepository` e REST HTTP 403 `Resource not accessible by integration`. A autorização no chat não altera o escopo da conexão. É necessário criar um repositório público vazio `oliveiranikolas1991/porto-velho-agora` ou liberar uma conexão com permissão de criação, e então enviar o histórico. Não há commit publicado nem execução GitHub Actions confirmados. O site foi publicado por arquivos, sem integração de deploy automático por push.
+GitHub: após o usuário liberar o acesso da integração, o envio dos nove commits foi concluído em https://github.com/oliveiranikolas1991/porto-velho-agora. O hash remoto inicial `90f846412fe77d2285f8e19f4d5e262f02575f38` corresponde exatamente ao local. GitHub Actions executado com sucesso: https://github.com/oliveiranikolas1991/porto-velho-agora/actions/runs/43319011360.
+
+A conexão automática do projeto Vercel ao GitHub ainda está pendente: a API recusou o deployment com origem Git (`incorrect_git_source_info`), mesmo com `main` confirmado no GitHub. O deploy público por arquivos permanece funcionando. Nenhuma conexão automática foi declarada como concluída.
 
 Revisão humana, conferência exata do Anexo B (não fornecido), aprovação docente da troca PHP/MySQL → Next.js/PostgreSQL, auditoria manual completa de teclado/contraste e expiração natural após sete dias permanecem pendentes. Nenhum desses itens foi marcado como realizado.

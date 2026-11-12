@@ -30,7 +30,7 @@ Registros de decisões e revisão técnica; em ordem cronológica de implementa�
 - [x] Revisão de código estática e configuração do `.gitignore`.
 - [x] Instalação das dependências e `next build` em ambiente com rede de pacotes.
 - [x] Criação e migração do banco Neon real.
-- [ ] Publicação de código e histórico no GitHub do estudante.
+- [x] Publicação de código e histórico no GitHub do estudante.
 - [x] Publicação pública no Vercel e teste de fumaça real.
 - [x] Teste de ponta a ponta com cadastro, login, dois avisos (com e sem foto), filtros e logout.
 - [ ] **Revisão humana** documentada e aprovada pelo estudante/professor, especialmente conforme Anexo B da apostila.
@@ -79,3 +79,11 @@ Registros de decisões e revisão técnica; em ordem cronológica de implementa�
 - Consulta aos logs de erro/fatal da Vercel no período da verificação não retornou entradas.
 - Fixada versão principal Node 24 no projeto/CI para evitar atualização automática de runtime; documentação atualizada com links verdadeiros, evidências e pendências.
 - GitHub segue bloqueado por permissões da integração; nenhum commit remoto ou execução GitHub Actions é declarado como concluído.
+
+
+## 2026-11-12 — GitHub liberado e histórico remoto confirmado
+- Após a liberação da integração pelo usuário, enviados os nove commits existentes à branch main do repositório público https://github.com/oliveiranikolas1991/porto-velho-agora.
+- Hash remoto inicial `90f846412fe77d2285f8e19f4d5e262f02575f38` conferido e idêntico ao local. Seis commits originais preservados sem alteração.
+- Primeira execução real do GitHub Actions concluída com sucesso: 43319011360, incluindo testes, verificação de segurança e build.
+- Tentativa de deployment Git no projeto Vercel existente retornou `incorrect_git_source_info`; conexão automática ainda não confirmada. Deploy por arquivos permanece disponível.
+- README, spec e documentos de entrega atualizados para retirar a pendência de publicação no GitHub. Registros anteriores de bloqueio foram preservados como histórico do trabalho.

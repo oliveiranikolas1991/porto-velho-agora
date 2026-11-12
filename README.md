@@ -21,7 +21,7 @@ Next.js 16 / React 19 / Node.js / Neon PostgreSQL (`@neondatabase/serverless`) /
 
 **URL pública:** https://porto-velho-agora.vercel.app
 
-**GitHub:** publicação pendente de permissão da integração para criar o repositório `oliveiranikolas1991/porto-velho-agora`. O histórico original está preservado no Git local; não há link remoto confirmado.
+**GitHub:** https://github.com/oliveiranikolas1991/porto-velho-agora — repositório público com os seis commits originais e as correções preservadas.
 
 **Banco:** PostgreSQL 17 no projeto Neon existente `sparkling-pond-43274194`, banco `neondb`. As cinco tabelas foram criadas após validação em branch isolada, sem exclusão de dados.
 
@@ -46,7 +46,7 @@ npm run dev
 npm test              # testes unitários
 npm run build         # compilação de produção
 npm run security      # arquivos sensíveis rastreados (verificação estática básica)
-npm run smoke -- https://URL-REAL-DA-VERCEL   # leitura, conectividade e rotas públicas
+npm run smoke -- https://porto-velho-agora.vercel.app   # leitura, conectividade e rotas públicas
 ```
 
 Os nove testes unitários, auditoria de dependências e build passaram nesta revisão. Dois cenários completos de navegador, desktop e Pixel 7, passaram contra uma branch real do Neon. Evidências e status de produção ficam em `docs/VERIFICACAO.md`. A revisão humana permanece pendente.
@@ -62,7 +62,7 @@ O E2E cria contas `@example.invalid` com senhas aleatórias e avisos marcados `[
 
 ## Publicação e entrega
 
-Leia [`docs/ENTREGA.md`](docs/ENTREGA.md) para consultar a publicação, as pendências de GitHub e o procedimento de atualização. O professor deve receber **GitHub + URL funcionando + spec + changelog**.
+Leia [`docs/ENTREGA.md`](docs/ENTREGA.md) para consultar a publicação, o estado da conexão Vercel e o procedimento de atualização. O professor deve receber **GitHub + URL funcionando + spec + changelog**.
 
 Leia também [`CHANGELOG.md`](CHANGELOG.md) e [`docs/SEGURANCA.md`](docs/SEGURANCA.md). Nunca comite `.env.local` ou a string de conexão real.
 

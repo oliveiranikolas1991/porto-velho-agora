@@ -2,7 +2,7 @@
 
 **Versão:** 1.0.0 (MVP)  
 **Data da revisão técnica:** 12/11/2026  
-**Estado:** aplicação publicada em https://porto-velho-agora.vercel.app, banco Neon integrado, nove testes unitários e dois cenários E2E locais aprovados. Resultados de produção em `docs/VERIFICACAO.md`. GitHub e revisão humana pendentes.  
+**Estado:** aplicação publicada em https://porto-velho-agora.vercel.app, banco Neon integrado, nove testes unitários e dois cenários E2E locais aprovados. Resultados de produção em `docs/VERIFICACAO.md`. Código e histórico publicados no GitHub; conexão automática Vercel e revisão humana pendentes.  
 **Lema:** A cidade acontece. Você fica sabendo.
 
 > Esta é a especificação *do código desenvolvido*. A especificação recebida, baseada em PHP + MySQL/XAMPP, é preservada sem alterações em [`spec-original.md`](spec-original.md).
@@ -60,7 +60,7 @@ HTML semântico, CSS responsivo, JavaScript/React para formulários; identidade 
 | Sessões | Cookie seguro + tabela PostgreSQL | Revogação server-side no logout. |
 | Imagens | `BYTEA` em tabela separada no Neon | Evita dependência de disco efêmero da Vercel; atende ao limite de até 2 MB para MVP acadêmico. |
 | Versionamento | Git/GitHub | Histórico real de commits com documentação. |
-| Hospedagem | Vercel, Node 24 | Deploy público por API de arquivos; conexão automática com GitHub pendente de criação/permissão do repositório. |
+| Hospedagem | Vercel, Node 24 | Deploy público por API de arquivos; repositório GitHub publicado, conexão automática com a Vercel pendente. |
 
 **Mudança principal vs. original:** PHP + MySQL (e `password_hash()` / PDO) foram substituídos por Next.js + Neon PostgreSQL (`bcryptjs` / consultas parametrizadas). Esta troca **deve ser aprovada pelo professor se a disciplina exigir especificamente PHP**. O objetivo funcional e os critérios de segurança foram preservados, mas a linguagem e o banco mudaram. Imagens deixaram de ser arquivos na pasta `uploads/avisos` e passaram a ser armazenadas em PostgreSQL, com URL pública `/api/avisos/{id}/imagem`.
 
@@ -110,4 +110,4 @@ Moderação, denúncias, edição/remoção de aviso, recuperação de senha, pa
 
 ## 10. Publicação e verificação
 
-Banco Neon existente migrado e aplicação publicada via API Vercel na equipe autorizada, com DATABASE_URL sensível e acesso público ao feed. A criação do GitHub retornou HTTP 403 por permissão insuficiente; os seis commits anteriores e os novos commits estão preservados localmente. Consulte `docs/ENTREGA.md` e `docs/VERIFICACAO.md` para evidências e pendências.
+Banco Neon existente migrado e aplicação publicada via API Vercel na equipe autorizada, com DATABASE_URL sensível e acesso público ao feed. Após liberação da conexão pelo usuário, os seis commits anteriores e os novos commits foram enviados ao repositório público https://github.com/oliveiranikolas1991/porto-velho-agora. A Vercel ainda recusou a origem Git com `incorrect_git_source_info`; o deploy por arquivos continua funcionando. Consulte `docs/ENTREGA.md` e `docs/VERIFICACAO.md` para evidências e pendências.
