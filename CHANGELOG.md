@@ -28,11 +28,11 @@ Registros de decisões e revisão técnica; em ordem cronológica de implementa�
 
 - [x] Testes unitários locais de validação com Node.js.
 - [x] Revisão de código estática e configuração do `.gitignore`.
-- [ ] Instalação das dependências e `next build` em ambiente com rede de pacotes.
-- [ ] Criação e migração do banco Neon real.
+- [x] Instalação das dependências e `next build` em ambiente com rede de pacotes.
+- [x] Criação e migração do banco Neon real.
 - [ ] Publicação de código e histórico no GitHub do estudante.
-- [ ] Publicação pública no Vercel e teste de fumaça real.
-- [ ] Teste de ponta a ponta com cadastro, login, dois avisos (com e sem foto), filtros e logout.
+- [x] Publicação pública no Vercel e teste de fumaça real.
+- [x] Teste de ponta a ponta com cadastro, login, dois avisos (com e sem foto), filtros e logout.
 - [ ] **Revisão humana** documentada e aprovada pelo estudante/professor, especialmente conforme Anexo B da apostila.
 
 **Integridade acadêmica:** o que foi verificado por código/IA está descrito como revisão técnica. Não se declara revisão humana nem funcionamento em produção sem que tenham ocorrido de fato. O professor deve poder conferir o histórico verdadeiro, as limitações e as evidências.
@@ -69,3 +69,13 @@ Registros de decisões e revisão técnica; em ordem cronológica de implementa�
 - Rejeitados PDF, extensão incompatível, assinatura de PNG falsa, imagem acima de 2 MB e categoria inválida. Dez tentativas concorrentes retornaram oito HTTP 401 e dois HTTP 429, conforme o limite.
 - Ajustados seletores dos testes para rótulos com asterisco; falhas iniciais não foram contabilizadas como testes aprovados.
 - Migração atômica aplicada ao banco principal `neondb` do projeto Neon existente: nove comandos, sem exclusão de dados.
+
+
+## 2026-11-12 — Produção verificada
+- Publicado em https://porto-velho-agora.vercel.app pela API da Vercel, equipe autorizada, projeto `prj_Jz3kdqSPIwMu8d2vR0BrQB4mLoUB`. Primeiro deploy `dpl_EPHkfthBDyVfnWAEyt3ggaU4V2aG`, estado READY; build remoto concluído.
+- `npm run smoke -- https://porto-velho-agora.vercel.app`: quatro verificações aprovadas, incluindo saúde do banco.
+- Dois cenários E2E completos na URL pública, desktop e Pixel 7: aprovados em 27,2 s. Primeira execução remota falhou pela CA do proxy não reconhecida pelo Chromium; a execução aprovada confiou especificamente na chave pública da CA do ambiente, sem desabilitar globalmente TLS. O curl e o teste de fumaça validaram TLS pelo trust store do sistema.
+- Banco principal conferido após E2E: dois usuários de teste com hashes bcrypt, quatro avisos de teste, duas imagens com tamanho íntegro e zero sessões restantes após logout. Posts de teste estão claramente identificados e não descrevem ocorrências reais.
+- Consulta aos logs de erro/fatal da Vercel no período da verificação não retornou entradas.
+- Fixada versão principal Node 24 no projeto/CI para evitar atualização automática de runtime; documentação atualizada com links verdadeiros, evidências e pendências.
+- GitHub segue bloqueado por permissões da integração; nenhum commit remoto ou execução GitHub Actions é declarado como concluído.

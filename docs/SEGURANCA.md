@@ -16,14 +16,16 @@
 
 ## Exige teste/ação real antes de marcar como concluído
 
-- [ ] Confirmar que nenhum segredo aparece nos commits e no repositório remoto (`git log`, `git grep`, inspeção visual).
-- [ ] Rodar `npm audit` em ambiente com acesso ao registro de pacotes; tratar alertas relevantes.
-- [ ] Rodar `npm run build` e `npm test` após instalar dependências; validar logs de build da Vercel.
-- [ ] Executar `schema.sql` na Neon e consultar tabelas reais.
-- [ ] Testar cadastro, duplicidade, login certo/errado, logout e expiração de sessão na URL de produção.
-- [ ] Testar avisos com/sem foto, filtros, imagem inválida/maior que 2 MB e controle de acesso no backend.
-- [ ] Conferir deploy com **HTTPS**, `secure` no cookie, cabeçalhos e URL em navegador anônimo.
-- [ ] Testar funcionalidade em celular, teclado e contraste visual.
+- [x] Varredura heurística de todos os blobs dos commits locais: nenhum segredo reconhecido. Inspeção do remoto pendente, pois ainda não existe repositório acessível.
+- [x] `npm audit` executado: zero vulnerabilidades reportadas.
+- [x] Build e nove testes unitários aprovados; logs de build da Vercel conferidos.
+- [x] Schema testado em branch isolada e aplicado ao banco principal; cinco tabelas conferidas.
+- [x] Cadastro, duplicidade, login correto/incorreto, logout e revogação do token anterior testados em produção.
+- [ ] Expiração natural após sete dias não foi aguardada; a condição `expira_em > NOW()` foi revisada no código.
+- [x] Testes de avisos, filtros, upload inválido/excessivo e acesso negado aprovados em produção.
+- [x] HTTPS e cookies Secure/HttpOnly/SameSite conferidos em contextos limpos de navegador e por HTTP; cabeçalhos de segurança verificados.
+- [x] Fluxo funcional em desktop e Pixel 7, ausência de rolagem horizontal e screenshots revisados por IA.
+- [ ] Auditoria manual completa de teclado e contraste por revisor humano.
 - [ ] Conferir item por item o Anexo B oficial da apostila (adicionar itens faltantes aqui).
 - [ ] Revisão humana registrada abaixo — é obrigatória para a avaliação e não pode ser inventada.
 
@@ -39,3 +41,14 @@
 - **Anexo B completo conferido?** Sim / Não — observações: ____________________
 
 **Riscos conhecidos:** upload com armazenamento em banco pode gerar custo/uso de espaço; a limitação de login é básica e não substitui proteção WAF/rate limiting distribuído; avisos públicos não passam por moderação; não há confirmação de e-mail nem recuperação de senha na versão 1.0.
+
+
+## Reforços desta revisão
+
+- Origem obrigatória e comparação de protocolo/host/porta; cross-site bloqueado.
+- Leitura com limite real de bytes antes de interpretar JSON/multipart.
+- Decodificação e recodificação de imagem, extensão compatível, limite de pixels e rejeição de animação; metadados removidos.
+- Limites de login por e-mail e IP reservados atomicamente antes do bcrypt; teste concorrente aprovado (8 respostas 401, 2 respostas 429).
+- Rótulo acessível de senha corrigido após falha detectada pelo navegador.
+
+Evidências completas em `VERIFICACAO.md`. A aprovação dos testes é técnica e automatizada; não preenche o registro de revisão humana acima.

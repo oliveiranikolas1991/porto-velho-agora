@@ -1,13 +1,13 @@
 # Entrega — roteiro operacional
 
-## Links para preencher após publicação
+## Publicação real e pendências
 
-- **GitHub:** PENDENTE — link público do repositório com todo o histórico.
-- **Sistema:** PENDENTE — URL de produção Vercel aberta em aba anônima.
+- **GitHub:** PENDENTE — integração GitHub negou criação do repositório (HTTP 403); histórico preservado localmente.
+- **Sistema:** https://porto-velho-agora.vercel.app — produção Vercel, acesso público.
 - **Spec final:** `spec.md` na raiz do repositório.
 - **Changelog:** `CHANGELOG.md` na raiz do repositório.
 
-> Não use uma URL fictícia como evidência. O repositório local contém commits reais, mas só estará acessível ao avaliador após push à conta GitHub.
+> O site já foi publicado pela API de arquivos, sem conexão GitHub. Para liberar o versionamento remoto, crie o repositório público vazio na conta oliveiranikolas1991 ou conceda uma conexão com permissão de criação. Depois envie o Git existente e conecte-o ao projeto Vercel existente; não recrie o projeto nem o banco.
 
 ## Etapa 1 — GitHub
 
@@ -18,15 +18,15 @@
 
 ## Etapa 2 — Neon (PostgreSQL)
 
-1. Em `https://console.neon.tech`, crie um projeto gratuito em região próxima, nome sugerido `porto-velho-agora`.
-2. Na página SQL Editor, cole o conteúdo de `schema.sql` e execute. Verifique as cinco tabelas.
+1. Reutilize o projeto `porto-velho-agora`, ID `sparkling-pond-43274194`. Não crie outro projeto.
+2. As cinco tabelas já foram criadas no projeto existente. Para uma instalação separada, valide `schema.sql` em branch isolada antes de aplicar.
 3. Copie a URL de conexão via *Connection details* (use SSL obrigatório). Não cole a URL no chat nem em arquivos públicos.
 4. Alternativa por CLI, com `DATABASE_URL` definida somente no ambiente de execução: `npm run db:migrate`.
 
 ## Etapa 3 — Vercel
 
 1. Entre em `https://vercel.com/new`, clique em Import Git Repository e selecione `porto-velho-agora`.
-2. Framework: Next.js; Root Directory: `./`; build padrão `npm run build`; Node 22.
+2. Framework: Next.js; Root Directory: `./`; build padrão `npm run build`; Node 24.
 3. Em **Environment Variables**, configure `DATABASE_URL` como a URL **real da Neon**, selecionando Production (e Preview/Development se desejar). Jamais prefira escrever a URL no código.
 4. Clique em Deploy. Confira logs e endereço `https://...vercel.app` retornado pelo serviço.
 5. Para alterações posteriores, faça novos commits e `git push` — a integração Vercel pode redesplegar automaticamente.
