@@ -1,6 +1,8 @@
+import { prepareImage } from '../../../lib/image';
+import { readBody } from '../../../lib/request';
 import { db } from '../../../lib/db';
 import { currentUser } from '../../../lib/session';
-import { checkOrigin, validateAviso, validateImage } from '../../../lib/validation';
+import { checkOrigin, validateAviso } from '../../../lib/validation';
 
 export const runtime = 'nodejs';
 export async function POST(request) {
@@ -8,12 +10,13 @@ export async function POST(request) {
   const declaredSize = Number(request.headers.get('content-length') || 0);
   if (declaredSize > 2 * 1024 * 1024 + 100_000)
     return Response.json({ error: 'Envio excede o limite permitido.' }, { status: 413 });
+  try {
   const user = await currentUser();
   if (!user) return Response.json({ error: 'Entre na sua conta para publicar.' }, { status: 401 });
   if (!request.headers.get('content-type')?.startsWith('multipart/form-data'))
     return Response.json({ error: 'Formato inválido.' }, { status: 415 });
-  try {
-    const form = await request.formData();
+    const body = await readBody(request, 2 * 1024 * 1024 + 100_000);
+    const form = await new Response(body, { headers: { 'Content-Type': request.headers.get('content-type') } }).formData();
     const validated = validateAviso({
       titulo: form.get('titulo'), descricao: form.get('descricao'),
       categoria: form.get('categoria'), bairro: form.get('bairro')
@@ -22,12 +25,13 @@ export async function POST(request) {
     const { titulo, descricao, categoria, bairro } = validated.value;
     const file = form.get('imagem');
     let picture = null;
+    if (typeof file === 'string' || (file?.name && file.size === 0)) return Response.json({ error: 'Arquivo de imagem inválido ou vazio.' }, { status: 400 });
     if (file && typeof file === 'object' && typeof file.arrayBuffer === 'function' && file.size > 0) {
       if (file.size > 2 * 1024 * 1024) return Response.json({ error: 'A imagem deve ter no máximo 2 MB.' }, { status: 400 });
       const bytes = new Uint8Array(await file.arrayBuffer());
-      const imageValidation = validateImage(bytes, file.type);
+      const imageValidation = await prepareImage(bytes, file.type, file.name);
       if (imageValidation.error) return Response.json({ error: imageValidation.error }, { status: 400 });
-      picture = { hex: Buffer.from(bytes).toString('hex'), ...imageValidation.value };
+      picture = imageValidation.value;
     }
     const sql = db();
     if (!picture) {
@@ -47,6 +51,8 @@ export async function POST(request) {
     ]);
     return Response.json({ success: true, id: String(id) }, { status: 201 });
   } catch (err) {
+    if (err.status) return Response.json({ error: err.message }, { status: err.status });
+    if (err instanceof TypeError) return Response.json({ error: 'Formulário inválido.' }, { status: 400 });
     console.error('Erro ao publicar:', err?.code || 'internal');
     return Response.json({ error: 'Não foi possível publicar o aviso.' }, { status: 500 });
   }

@@ -12,7 +12,7 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   const user = await currentUser();
   return <html lang="pt-BR"><body>
-    <div className="app-shell"><Header user={user}/><main id="conteudo">{children}</main>
+    <a className="skip-link" href="#conteudo">Pular para o conteúdo</a><div className="app-shell"><Header user={user}/><main id="conteudo">{children}</main>
       <footer className="footer"><div className="container footer-content"><div className="footer-brand"><BrandMark small/><span><strong>Porto Velho Agora</strong><small>A cidade acontece. Você fica sabendo.</small></span></div><span>Feito para conectar nossa comunidade. <Link href="/">Voltar ao início</Link></span></div></footer>
     </div>
   </body></html>;

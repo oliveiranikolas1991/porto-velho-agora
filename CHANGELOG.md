@@ -48,3 +48,17 @@ Registros de decisões e revisão técnica; em ordem cronológica de implementa�
 - Criado workflow GitHub Actions para instalar dependências, executar testes unitários, conferir arquivos sensíveis e compilar o Next.js em cada push/PR.
 - Adicionados cabeçalhos HTTP `nosniff`, `Referrer-Policy`, `X-Frame-Options` e `Permissions-Policy` para reduzir exposição a vetores comuns de navegador.
 - O workflow será efetivamente executado **apenas após publicar o repositório no GitHub**. Ainda não há resultado de CI real para alegar como aprovado.
+
+## 2026-11-12 — Auditoria e preparação real da publicação
+- Confirmados e preservados os seis commits recebidos no ZIP, de `0e47430` a `349b48d`; sem reescrever autores ou datas.
+- Instaladas dependências, criado lockfile e alterado CI para `npm ci`; primeira compilação de produção concluída.
+- Reforçado CSRF: rejeição de origem ausente, nula, de outro protocolo ou cross-site.
+- Corrigida confiança exclusiva no Content-Length: limite aplicado aos bytes realmente recebidos, inclusive JSON e multipart transmitidos sem tamanho declarado.
+- Upload agora exige extensão correspondente, decodifica e recodifica JPEG/PNG/WEBP via sharp, remove metadados e conteúdo anexado, rejeita imagens falsas, animadas ou com mais de 20 milhões de pixels.
+- Corrigida janela de concorrência no bloqueio de login: reserva atômica antes do bcrypt, limites por e-mail e IP; cadastro também limitado por IP. Hash fictício de comparação reduz diferença de tempo para conta inexistente.
+- Corrigido rótulo acessível da senha após primeira execução Playwright; acrescentado link para pular ao conteúdo e aplicada cor de fundo original #F0F4F8.
+- Migração testada em branch isolada do projeto Neon existente; cinco tabelas conferidas. Adaptada execução para transação atômica e carregamento de `.env.local` pelo comando npm.
+- Nove testes unitários executados e aprovados; `npm audit` sem vulnerabilidades. Varredura dos seis commits encontrou apenas URLs fictícias dos exemplos, nenhum segredo reconhecido.
+- Tentativas reais de criar GitHub bloqueadas: GraphQL `CreateRepository` e REST HTTP 403 `Resource not accessible by integration`. Autorização verbal do usuário não amplia as permissões do token.
+- Criado projeto Vercel na equipe autorizada, Node 24 e variável DATABASE_URL sensível; evidências de produção serão registradas após os testes.
+- Revisão humana e conferência do Anexo B permanecem pendentes. Nenhuma revisão humana foi atribuída ao estudante.

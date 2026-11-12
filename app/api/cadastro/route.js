@@ -1,3 +1,5 @@
+import { readJson } from '../../../lib/request';
+import { clientIp, takeAttempt } from '../../../lib/rate-limit';
 import bcrypt from 'bcryptjs';
 import { db } from '../../../lib/db';
 import { validateSignup, checkOrigin } from '../../../lib/validation';
@@ -8,16 +10,16 @@ export async function POST(request) {
   if (!request.headers.get('content-type')?.includes('application/json')) return Response.json({ error: 'Formato inválido.' }, { status: 415 });
   let data;
   try {
-    const body = await request.text();
-    if (body.length > 10_000) return Response.json({ error: 'Dados excessivos.' }, { status: 413 });
-    data = JSON.parse(body);
-  } catch { return Response.json({ error: 'Dados inválidos.' }, { status: 400 }); }
+    data = await readJson(request);
+  } catch (err) { return Response.json({ error: err.message || 'Dados inválidos.' }, { status: err.status || 400 }); }
   const result = validateSignup(data);
   if (result.error) return Response.json({ error: result.error }, { status: 400 });
   const { nome, email, senha } = result.value;
   try {
-    const hash = await bcrypt.hash(senha, 12);
     const sql = db();
+    if (!(await takeAttempt(sql, 'cadastro-ip', clientIp(request), 20)))
+      return Response.json({ error: 'Muitos cadastros. Tente novamente em 15 minutos.' }, { status: 429 });
+    const hash = await bcrypt.hash(senha, 12);
     await sql`INSERT INTO usuarios (nome, email, senha_hash) VALUES (${nome}, ${email}, ${hash})`;
     return Response.json({ success: true }, { status: 201 });
   } catch (err) {
