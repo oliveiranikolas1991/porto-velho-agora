@@ -28,6 +28,10 @@ test('identificação de foto exige assinatura real e tipo correspondente', () =
   assert.ok(validateImage(png, 'image/jpeg').error);
   assert.ok(validateImage(new Uint8Array(2*1024*1024+1), 'image/png').error);
   assert.equal(detectImageType(new Uint8Array(12)), null);
+  const jpg = Uint8Array.from([255,216,255,224,0,16,74,70,73,70,0,0]);
+  assert.equal(validateImage(jpg, 'image/jpeg').value.mime, 'image/jpeg');
+  const webp = Uint8Array.from([82,73,70,70,4,0,0,0,87,69,66,80]);
+  assert.equal(validateImage(webp, 'image/webp').value.mime, 'image/webp');
 });
 
 test('rotas rejeitam IDs inválidos e origens diferentes', () => {

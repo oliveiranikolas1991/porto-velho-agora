@@ -9,7 +9,7 @@
 - [x] Consultas parametrizadas do driver Neon; nada de interpolação de entrada do usuário em SQL manual.
 - [x] Acesso condicionado ao login tanto na rota protegida da interface como em `POST /api/avisos`.
 - [x] Cookie HTTP-only, SameSite=Lax, Secure em produção; sessão revogável no logout, token armazenado no banco apenas como hash.
-- [x] Validação no backend de campos, IDs, categoria e tamanho/formato/assinatura de foto.
+- [x] Validação no backend de campos, IDs, categoria e tamanho/formato/assinatura de foto; rejeição inicial de `Content-Length` excessivo.
 - [x] Apenas imagens de avisos ativos são servidas, com MIME controlado e `nosniff`.
 - [x] Limite básico de tentativas de login no banco; checagem de origem em requisições mutantes.
 - [x] Frontend não renderiza HTML inserido pelo usuário via `dangerouslySetInnerHTML`.

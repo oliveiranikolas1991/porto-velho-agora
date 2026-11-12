@@ -5,6 +5,9 @@ import { checkOrigin, validateAviso, validateImage } from '../../../lib/validati
 export const runtime = 'nodejs';
 export async function POST(request) {
   if (!checkOrigin(request)) return Response.json({ error: 'Origem não autorizada.' }, { status: 403 });
+  const declaredSize = Number(request.headers.get('content-length') || 0);
+  if (declaredSize > 2 * 1024 * 1024 + 100_000)
+    return Response.json({ error: 'Envio excede o limite permitido.' }, { status: 413 });
   const user = await currentUser();
   if (!user) return Response.json({ error: 'Entre na sua conta para publicar.' }, { status: 401 });
   if (!request.headers.get('content-type')?.startsWith('multipart/form-data'))
@@ -30,7 +33,7 @@ export async function POST(request) {
     if (!picture) {
       const [saved] = await sql`INSERT INTO avisos (usuario_id, titulo, descricao, categoria, bairro)
         VALUES (${user.id}, ${titulo}, ${descricao}, ${categoria}, ${bairro}) RETURNING id`;
-      return Response.json({ success: true, id: saved.id }, { status: 201 });
+      return Response.json({ success: true, id: String(saved.id) }, { status: 201 });
     }
     // Aloca ID antes para definir URL correta e inserir aviso + imagem de forma atômica.
     const [sequence] = await sql`SELECT nextval(pg_get_serial_sequence('avisos', 'id')) AS id`;
@@ -42,7 +45,7 @@ export async function POST(request) {
       sql`INSERT INTO avisos_imagens (aviso_id, tipo_mime, conteudo, tamanho_bytes)
           VALUES (${id}, ${picture.mime}, decode(${picture.hex}, 'hex'), ${picture.size})`
     ]);
-    return Response.json({ success: true, id }, { status: 201 });
+    return Response.json({ success: true, id: String(id) }, { status: 201 });
   } catch (err) {
     console.error('Erro ao publicar:', err?.code || 'internal');
     return Response.json({ error: 'Não foi possível publicar o aviso.' }, { status: 500 });

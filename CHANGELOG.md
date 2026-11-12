@@ -36,3 +36,10 @@ Registros de decisões e revisão técnica; em ordem cronológica de implementa�
 - [ ] **Revisão humana** documentada e aprovada pelo estudante/professor, especialmente conforme Anexo B da apostila.
 
 **Integridade acadêmica:** o que foi verificado por código/IA está descrito como revisão técnica. Não se declara revisão humana nem funcionamento em produção sem que tenham ocorrido de fato. O professor deve poder conferir o histórico verdadeiro, as limitações e as evidências.
+
+## 2026-11-12 — Revisão técnica adicional
+- Revisados 33 arquivos JavaScript (sintaxe JSX/JS e resolução de importações): zero erros encontrados por análise estática.
+- Reexecutados cinco testes automatizados: todos passaram.
+- Corrigido retorno dos IDs para texto na API, evitando problemas de serialização de inteiros grandes.
+- Inserida verificação inicial do tamanho declarado da requisição multipart, além do limite do arquivo e da restrição de tamanho no banco.
+- Documentada de forma explícita a ausência de evidência de uso do Google Antigravity, para não criar um relatório acadêmico falso.
